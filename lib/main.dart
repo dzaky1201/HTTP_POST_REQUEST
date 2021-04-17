@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http_request_training/post_result_model.dart';
+import 'package:http_request_training/user_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  PostResult? postResult;
+  String output = "No Data";
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +25,28 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text((postResult != null) ? postResult!.id + " | " +
-                  postResult!.name + " | " + postResult!.job + " | " +
-                  postResult!.created : "Data Kosong"),
+              // contoh hasil post
+              // Text((postResult != null) ? postResult!.id + " | " +
+              //     postResult!.name + " | " + postResult!.job + " | " +
+              //     postResult!.created : "Data Kosong"),
+              Text(output),
               ElevatedButton(
                 onPressed: () {
-                  PostResult.connectToApi("Dzaky", "Developer").then((value){
-                    postResult = value;
-                    setState(() {
-                    });
+                  // contoh post data
+                  // PostResult.connectToApi("Dzaky", "Developer").then((value){
+                  //   postResult = value;
+                  //   setState(() {
+                  //   });
+                  // });
+                  User.getUser("2").then((value) {
+                    output = "";
+                    for (int i = 0; i < value.length; i++) {
+                      output = output + " [ " + value[i].name + " ] ";
+                    }
+                    setState(() {});
                   });
                 },
-                child: Text('POST'),
+                child: Text('GET'),
               ),
             ],
           ),
